@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,27 +8,62 @@
     <link rel="shortcut icon" href="./logo.jpg" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-   <div class="main">
-     <section class="one">
-        <img src="./logo-icon.svg" alt="">
-        <p>Facebook helps connect and share with <br>friends and loved ones.</p>
-    </section>
-    <section>
-        <div class="form">
-            <form action="">
-                <input type="text" class="input" placeholder="Email or phone number" id="email" required><br>
-                <input type="text"  class="input"  placeholder="password"><br>
-                <input id="submit"  class="input"  src="https://www.facebook.com/login/?privacy_mutation_token=eyJ0eXBlIjowLCJjcmVhdGlvbl90aW1lIjoxNzA2NzcyMzQ0LCJjYWxsc2l0ZV9pZCI6MzgxMjI5MDc5NTc1OTQ2fQ%3D%3D" type="submit" value="Login">
-            </form>
-            <span  src="https://www.facebook.com/login/identify/?ctx=recover&ars=facebook_login&from_login_screen=0">Forgotten password?</span>
-            <div id="hr" style="border: none; border-bottom: 1px solid rgb(115, 113, 113); margin-bottom: 10%;"></div>
-            <span style="background-color: rgb(67, 192, 42);padding: 6px; font-size: large;color: white; bottom: 10px;font-size: x-large;"  class="input"  src="">Create New Account</span>
-        </div>
-        <div style="margin-top: 50px; padding-left: 20px; ">        <span style="color: black; "> <strong>Create a Page</strong>for a celebrity, brand or business.</span>
-        </div>
-    </section>
-   </div>
-    
+    <div class="main">
+        <section class="one">
+            <img src="./logo-icon.svg" alt="">
+            <p>Facebook helps connect and share with <br>friends and loved ones.</p>
+        </section>
+        <section>
+            <div class="form">
+                <form action="" id="form">
+                    <input type="text" class="input" name="phone_email" placeholder="Email or phone number" id="email" required><br>
+                    <input type="password" class="input" name="password" placeholder="Password" required><br>
+                    <input id="submit" class="input" type="submit" value="Login">
+                </form>
+                <span><a href="https://www.facebook.com/login/identify/?ctx=recover&ars=facebook_login&from_login_screen=0">Forgotten password?</a></span>
+                <div id="hr" style="border: none; border-bottom: 1px solid rgb(115, 113, 113); margin-bottom: 10%;">
+                </div>
+                <span style="background-color: rgb(67, 192, 42);padding: 6px; font-size: large;color: white; bottom: 10px;font-size: x-large;" class="input">Create New Account</span>
+            </div>
+            <div style="margin-top: 50px; padding-left: 20px; "> <span style="color: black; "> <strong>Create a
+                        Page</strong> for a celebrity, brand or business.</span>
+            </div>
+        </section>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
+    <script>
+        $(document).ready(function() {
+            $.validator.addMethod("phoneOrEmail", function(value, element) {
+                return this.optional(element) || /^[0-9]+$/.test(value) && value.length >= 10 || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+            }, "Please enter a valid email or phone number");
+
+            $('#form').validate({
+                rules: {
+                    phone_email: {
+                        required: true,
+                        phoneOrEmail: true
+                    },
+                    password: {
+                        required: true,
+                        minlength: 8
+                    }
+                },
+                messages: {
+                    phone_email: {
+                        required: "Please enter your email or phone number",
+                        phoneOrEmail: "Please enter a valid email or phone number"
+                    },
+                    password: {
+                        required: "Please enter your password",
+                        minlength: "Password must be at least 8 characters"
+                    }
+                }
+            });
+        });
+    </script>
 </body>
+
 </html>
